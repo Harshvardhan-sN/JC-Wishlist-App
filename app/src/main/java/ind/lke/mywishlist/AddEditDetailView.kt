@@ -32,9 +32,12 @@ fun AddEditDetailView(
     navController: NavController
 ) {
     Scaffold(
-        topBar = { AppBarView(title =
-        if (id != 0L) stringResource(id = R.string.update_wish)
-        else stringResource(id = R.string.add_wish)) }
+        topBar = { AppBarView(
+            title =
+            if (id != 0L) stringResource(id = R.string.update_wish)
+            else stringResource(id = R.string.add_wish),
+            onBackNavClicked = { navController.navigateUp() }
+            ) }
     ) {
         Column(
             modifier = Modifier
