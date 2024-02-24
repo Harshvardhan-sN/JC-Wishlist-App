@@ -1,6 +1,7 @@
 package ind.lke.mywishlist
 
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
 import androidx.compose.material.SnackbarDuration
@@ -27,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
@@ -59,6 +62,7 @@ fun AddEditDetailView(
         viewModel.wishDescriptionState = ""
     }
     Scaffold(
+        backgroundColor = colorResource(id = R.color.app_bar_color),
         topBar = { AppBarView(
             title =
             if (id != 0L) stringResource(id = R.string.update_wish)
@@ -93,19 +97,20 @@ fun AddEditDetailView(
             )
             
             Spacer(modifier = Modifier.height(10.dp))
-            Button(onClick = {
+            Button(colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = R.color.button_lavender)),
+                onClick = {
                 if(viewModel.wishTitleState.trim().isNotEmpty() &&
                     viewModel.wishDescriptionState.trim().isNotEmpty()) {
-                    if(id == 0L) { // add wish
+                    message = if(id == 0L) { // add wish
                         viewModel.addWish(Wish(title = viewModel.wishTitleState.trim(),
-                                description = viewModel.wishDescriptionState.trim())
+                            description = viewModel.wishDescriptionState.trim())
                         )
-                        message = "Wish Added"
+                        "Wish Added"
                     } else {    // update wish
                         viewModel.updateWish(Wish(id = id, title = viewModel.wishTitleState.trim(),
                             description = viewModel.wishDescriptionState.trim())
                         )
-                        message = "Wish Updated"
+                        "Wish Updated"
                     }
                     scope.launch {
                         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()

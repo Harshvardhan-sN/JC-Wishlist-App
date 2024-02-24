@@ -33,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -47,6 +48,7 @@ fun HomeView(
 ) {
     val context = LocalContext.current
     Scaffold(
+        backgroundColor = colorResource(id = R.color.app_bar_color),
         topBar = { AppBarView(title = "WishList") {
             mMakeToast("navigation button working", context) } },
         floatingActionButton = {
@@ -80,7 +82,11 @@ fun HomeView(
                            if (dismissState.dismissDirection == DismissDirection.EndToStart) { Color.Red } else { Color.Transparent },
                            label = ""
                         )
-                        Box(Modifier.fillMaxSize().background(color).padding(horizontal = 20.dp),
+                        Box(
+                            Modifier
+                                .fillMaxSize()
+                                .background(color)
+                                .padding(horizontal = 20.dp),
                             contentAlignment = Alignment.CenterEnd) {
                             Icon(Icons.Default.Delete, contentDescription = "", tint = Color.White)
                         }
@@ -105,7 +111,7 @@ fun WishItem(wish: Wish, onClick: () -> Unit) {
         .padding(top = 8.dp, start = 8.dp, end = 8.dp)
         .clickable { onClick() },
         elevation = 10.dp,
-        backgroundColor = Color.White
+        backgroundColor = colorResource(id = R.color.card_view_background)
     ) {
         Column(modifier = Modifier.padding(10.dp)) {
             Text(text = wish.title, fontWeight = FontWeight.ExtraBold, color = Color.Black)

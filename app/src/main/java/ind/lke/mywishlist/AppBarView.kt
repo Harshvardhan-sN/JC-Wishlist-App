@@ -28,7 +28,7 @@ fun AppBarView(
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = null,
-                        tint = Color.White
+                        tint = Color.Black
                     )
                 }
             }
@@ -37,12 +37,12 @@ fun AppBarView(
     TopAppBar(
         title = {
             Text(text = title,
-            color = Color.White,
+            color = Color.Black,
             modifier = Modifier
                 .padding(start = 4.dp)
                 .heightIn(max = 24.dp))
         },
-        elevation = 3.dp,
+        elevation = (-1).dp,
         backgroundColor = colorResource(id = R.color.app_bar_color),
         navigationIcon = navigationIcon
     )
