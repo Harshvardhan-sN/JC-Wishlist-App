@@ -26,6 +26,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.rememberDismissState
+import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -35,6 +36,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import ind.lke.mywishlist.Data.DummyData
@@ -116,6 +118,18 @@ fun WishItem(wish: Wish, onClick: () -> Unit) {
         Column(modifier = Modifier.padding(10.dp)) {
             Text(text = wish.title, fontWeight = FontWeight.ExtraBold, color = Color.Black)
             Text(text = wish.description, color = Color.Black)
+            Divider(
+                modifier = Modifier.padding(top = 2.dp),
+                color = Color.Black,
+                thickness = 0.2.dp)
+            Text(
+                text = wish.date,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(top = 2.dp, end = 5.dp),
+                textAlign = TextAlign.End,
+                color = colorResource(id = R.color.time_text_color)
+            )
         }
     }
 }

@@ -11,7 +11,9 @@ data class Wish(
     @ColumnInfo(name = "wish-title")
     val title: String = "",
     @ColumnInfo(name = "wish-desc")
-    val description: String = ""
+    val description: String = "",
+    @ColumnInfo(name = "wish-date")
+    val date: String = ""
 )
 
 object DummyData {

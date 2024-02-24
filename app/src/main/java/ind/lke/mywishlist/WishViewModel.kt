@@ -20,7 +20,7 @@ class WishViewModel(
     fun onWishTitleChanged(newString: String) {
         wishTitleState = newString
     }
-    fun onWishDecriptionChanged(newString: String) {
+    fun onWishDescriptionChanged(newString: String) {
         wishDescriptionState = newString
     }
 

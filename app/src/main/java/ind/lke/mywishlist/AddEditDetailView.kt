@@ -1,7 +1,6 @@
 package ind.lke.mywishlist
 
 import android.widget.Toast
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -39,6 +38,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import ind.lke.mywishlist.Data.Wish
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 @Composable
 fun AddEditDetailView(
@@ -52,6 +54,7 @@ fun AddEditDetailView(
     val scope = rememberCoroutineScope()
     val scaffoldState = rememberScaffoldState()
     val context = LocalContext.current
+    val currentDate = getCurrentData()
 
     if(id != 0L) { // update wish
         val wish = viewModel.getWishByID(id).collectAsState(initial = Wish(0L, "", ""))
@@ -92,7 +95,7 @@ fun AddEditDetailView(
                 label = "Description",
                 value = viewModel.wishDescriptionState,
                 onValueChanged = {
-                    viewModel.onWishDecriptionChanged(it)
+                    viewModel.onWishDescriptionChanged(it)
                 }
             )
             
@@ -103,12 +106,14 @@ fun AddEditDetailView(
                     viewModel.wishDescriptionState.trim().isNotEmpty()) {
                     message = if(id == 0L) { // add wish
                         viewModel.addWish(Wish(title = viewModel.wishTitleState.trim(),
-                            description = viewModel.wishDescriptionState.trim())
+                            description = viewModel.wishDescriptionState.trim(),
+                            date = currentDate)
                         )
                         "Wish Added"
                     } else {    // update wish
                         viewModel.updateWish(Wish(id = id, title = viewModel.wishTitleState.trim(),
-                            description = viewModel.wishDescriptionState.trim())
+                            description = viewModel.wishDescriptionState.trim(),
+                            date = currentDate)
                         )
                         "Wish Updated"
                     }
@@ -160,4 +165,10 @@ fun WishTextField(
 @Composable
 fun WishTextFieldPreview() {
     WishTextField(label = "Check", value = "Check", onValueChanged = {})
+}
+
+fun getCurrentData(): String {
+    val currentData = LocalDate.now()
+    val formatter = DateTimeFormatter.ofPattern("dd MMM yyyy", Locale.ENGLISH)
+    return currentData.format(formatter)
 }
