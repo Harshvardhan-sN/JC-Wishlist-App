@@ -24,10 +24,10 @@ class WishViewModel(
         wishDescriptionState = newString
     }
 
-    lateinit var getAllWished: Flow<List<Wish>>
+    lateinit var getAllWishes: Flow<List<Wish>>
     init {
         viewModelScope.launch {
-            getAllWished = wishRepository.getAllWishes()
+            getAllWishes = wishRepository.getAllWishes()
         }
     }
     fun addWish(wish: Wish) {
